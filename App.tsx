@@ -1,18 +1,21 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { Home } from "@screens/Home";
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
-import { styles } from "./styles";
-import { Logo } from "./src/components/Logo";
-import { GoogleAuthButton } from "./src/components/GoogleAuthButton";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <NavigationContainer>
       <StatusBar style="auto" />
-      <Logo />
-      <Text style={styles.description}>
-        Entre com sua conta do Google para começar a estudar campos harmônicos.
-      </Text>
-      <GoogleAuthButton />
-    </View>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
