@@ -1,8 +1,8 @@
 import "react-native-gesture-handler";
 import { AppRegistry, Platform, StatusBar, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { Auth } from "@screens/Auth";
 import { Home } from "@screens/Home";
-import { Main } from "@screens/Main";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationDrawer } from "@components/NavigationDrawer";
 
@@ -22,8 +22,8 @@ export default function App() {
         }}
         drawerContent={(props) => <NavigationDrawer {...props} />}
       >
+        <Drawer.Screen name="Auth" component={Auth} />
         <Drawer.Screen name="Home" component={Home} />
-        <Drawer.Screen name="Main" component={Main} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

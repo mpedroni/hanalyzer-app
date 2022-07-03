@@ -1,25 +1,98 @@
-import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import { Dropdown } from "@components/Dropdown";
+import { HarmonicField } from "@components/HarmonicField";
+import { KeySelector } from "@components/KeySelector";
+import { Navbar } from "@components/Navbar";
+import { NotesSelector } from "@components/NotesSelector";
+import { View } from "react-native";
 import { styles } from "./styles";
-import { Logo } from "@components/Logo";
-import { GoogleAuthButton } from "@components/GoogleAuthButton";
-import type { Screen } from "src/types/screen";
+import { Chord } from "types/chord";
 
-type HomeProps = Screen<"Home">;
+const structures = [
+  { value: "triad", label: "Tríades" },
+  { value: "tetrad", label: "Tétrades" },
+];
 
-export const Home = ({ navigation }: HomeProps) => {
-  function navigate() {
-    navigation.navigate("Main");
-  }
+const scales = [
+  { value: "major", label: "Maior" },
+  { value: "minor", label: "Menor" },
+];
 
+const harmonicField: Chord[] = [
+  {
+    name: "C",
+    degree: "I",
+    notes: ["C", "E", "G", "B"],
+  },
+  {
+    name: "Dm",
+    degree: "II",
+    notes: ["D", "F", "A", "C"],
+  },
+  {
+    name: "Em",
+    degree: "III",
+    notes: ["E", "G", "B", "D"],
+  },
+  {
+    name: "F",
+    degree: "IV",
+    notes: ["F", "A", "C", "E"],
+  },
+  {
+    name: "G",
+    degree: "V",
+    notes: ["G", "B", "D", "F"],
+  },
+  {
+    name: "Am",
+    degree: "VI",
+    notes: ["A", "C", "E", "G"],
+  },
+  {
+    name: "Bø",
+    degree: "III",
+    notes: ["B", "D", "F", "A"],
+  },
+];
+
+export function Home() {
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
-      <Logo />
-      <Text style={styles.description}>
-        Entre com sua conta do Google para começar a estudar campos harmônicos.
-      </Text>
-      <GoogleAuthButton onAuth={navigate} />
+      <Navbar />
+      <View style={styles.form}>
+        <NotesSelector />
+        <View
+          style={{
+            marginTop: 16,
+          }}
+        >
+          <Dropdown data={structures} label="Estrutura de acordes" />
+        </View>
+
+        <View
+          style={{
+            marginTop: 16,
+          }}
+        >
+          <Dropdown data={scales} label="Escala" />
+        </View>
+
+        <View
+          style={{
+            marginTop: 16,
+          }}
+        >
+          <KeySelector />
+        </View>
+      </View>
+
+      <View
+        style={{
+          marginTop: 32,
+        }}
+      >
+        <HarmonicField harmonicField={harmonicField} />
+      </View>
     </View>
   );
-};
+}
