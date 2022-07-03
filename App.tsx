@@ -5,6 +5,7 @@ import { Auth } from "@screens/Auth";
 import { Home } from "@screens/Home";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationDrawer } from "@components/NavigationDrawer";
+import { MyScales } from "@screens/MyScales";
 
 const Drawer = createDrawerNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
       >
         <Drawer.Screen name="Auth" component={Auth} />
         <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="MyScales" component={MyScales} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
