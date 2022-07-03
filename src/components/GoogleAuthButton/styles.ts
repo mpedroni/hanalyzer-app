@@ -4,7 +4,9 @@ import { colors } from "@colors";
 export const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
+    width: "100%",
     backgroundColor: colors.background.gray[700],
     padding: 16,
     borderRadius: 4,
