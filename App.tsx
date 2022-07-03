@@ -1,10 +1,12 @@
-import { AppRegistry, Platform, StatusBar } from "react-native";
+import "react-native-gesture-handler";
+import { AppRegistry, Platform, StatusBar, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Home } from "@screens/Home";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Main } from "@screens/Main";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationDrawer } from "@components/NavigationDrawer";
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
@@ -14,10 +16,15 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Main" component={Main} key="main" />
-      </Stack.Navigator>
+      <Drawer.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+        drawerContent={(props) => <NavigationDrawer {...props} />}
+      >
+        <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="Main" component={Main} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
