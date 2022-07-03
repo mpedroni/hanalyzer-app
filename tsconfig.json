@@ -6,6 +6,7 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@screens/*": ["src/screens/*"],
+      "@types/*": ["src/types/*"],
       "@colors": ["src/styles/colors"],
       "@assets": ["assets"]
     }
