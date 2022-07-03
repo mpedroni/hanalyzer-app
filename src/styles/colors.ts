@@ -3,6 +3,7 @@ export const colors = {
   background: {
     gray: {
       900: "#263238",
+      800: "#37474F",
       700: "#455A64",
     },
   },
