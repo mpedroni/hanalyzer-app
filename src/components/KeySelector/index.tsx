@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { RootKey } from "types/harmonic-field";
 import { styles } from "./styles";
 
-const keys = [
+const keys: { label: string; value: RootKey }[] = [
   { label: "C", value: "C" },
   { label: "D", value: "D" },
   { label: "E", value: "E" },
@@ -12,22 +13,22 @@ const keys = [
   { label: "B", value: "B" },
 ];
 
-export function KeySelector() {
-  const [selected, setSelected] = useState("");
+interface KeySelectorProps {
+  value: RootKey;
+  onChange: (rk: RootKey) => void;
+}
 
+export function KeySelector({ value, onChange }: KeySelectorProps) {
   return (
     <View style={styles.container}>
       {keys.map((key) => (
         <TouchableOpacity
           key={key.value}
-          style={[styles.key, key.value === selected && styles.key__selected]}
-          onPress={() => setSelected(key.value)}
+          style={[styles.key, key.value === value && styles.key__selected]}
+          onPress={() => onChange(key.value)}
         >
           <Text
-            style={[
-              styles.label,
-              key.value === selected && styles.key__selected,
-            ]}
+            style={[styles.label, key.value === value && styles.key__selected]}
           >
             {key.label}
           </Text>

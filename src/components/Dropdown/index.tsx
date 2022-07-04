@@ -6,11 +6,11 @@ import { styles } from "./styles";
 interface DropdownProps {
   label: string;
   data: { label: string; value: any }[];
+  value: any;
+  onChange: (v: any) => void;
 }
 
-export function Dropdown({ label, data }: DropdownProps) {
-  const [value, setValue] = useState(data[0].value);
-
+export function Dropdown({ label, data, value, onChange }: DropdownProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
@@ -27,7 +27,7 @@ export function Dropdown({ label, data }: DropdownProps) {
         placeholder={""}
         value={value}
         onChange={(item) => {
-          setValue(item.value);
+          onChange(item.value);
         }}
       />
     </View>

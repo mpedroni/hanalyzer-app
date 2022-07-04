@@ -1,11 +1,14 @@
 import { Dropdown } from "@components/Dropdown";
-import { HarmonicField } from "@components/HarmonicField";
+import { ChordStructure, Note, RootKey, Scale } from "types/harmonic-field";
 import { KeySelector } from "@components/KeySelector";
 import { Navbar } from "@components/Navbar";
 import { NotesSelector } from "@components/NotesSelector";
 import { View } from "react-native";
 import { styles } from "./styles";
 import { Chord } from "types/chord";
+
+import { useState } from "react";
+import { HarmonicField } from "@components/HarmonicField";
 
 const structures = [
   { value: "triad", label: "Tríades" },
@@ -56,17 +59,27 @@ const harmonicField: Chord[] = [
 ];
 
 export function Home() {
+  const [note, setNote] = useState<Note>("natural");
+  const [structure, setStructure] = useState<ChordStructure>("triad");
+  const [scale, setScale] = useState<Scale>("major");
+  const [rootKey, setRootKey] = useState<RootKey>("" as RootKey);
+
   return (
     <View style={styles.container}>
       <Navbar />
       <View style={styles.form}>
-        <NotesSelector />
+        <NotesSelector value={note} onChange={(note) => setNote(note)} />
         <View
           style={{
             marginTop: 16,
           }}
         >
-          <Dropdown data={structures} label="Estrutura de acordes" />
+          <Dropdown
+            data={structures}
+            onChange={(s) => setStructure(s)}
+            value={structure}
+            label="Estrutura de acordes"
+          />
         </View>
 
         <View
@@ -74,7 +87,12 @@ export function Home() {
             marginTop: 16,
           }}
         >
-          <Dropdown data={scales} label="Escala" />
+          <Dropdown
+            data={scales}
+            label="Escala"
+            onChange={(s) => setScale(s)}
+            value={scale}
+          />
         </View>
 
         <View
@@ -82,7 +100,7 @@ export function Home() {
             marginTop: 16,
           }}
         >
-          <KeySelector />
+          <KeySelector value={rootKey} onChange={(k) => setRootKey(k)} />
         </View>
       </View>
 
@@ -91,7 +109,12 @@ export function Home() {
           marginTop: 32,
         }}
       >
-        <HarmonicField harmonicField={harmonicField} />
+        <HarmonicField
+          note={note}
+          scale={scale}
+          structure={structure}
+          rootKey={rootKey}
+        />
       </View>
     </View>
   );
