@@ -4,12 +4,14 @@ import { Chord as ChordComponent } from "./Chord";
 import { styles } from "./styles";
 import { ChordStructure, Note, RootKey, Scale } from "types/harmonic-field";
 import { Chord } from "types/chord";
+import { useEffect, useState } from "react";
 
 interface HarmonicFieldProps {
   note: Note;
   structure: ChordStructure;
   scale: Scale;
   rootKey?: RootKey;
+  onChange: (hf: { name: string; harmonicField: Chord[] }) => void;
 }
 
 function numberToGreekNumbers(n: number) {
@@ -31,7 +33,10 @@ export function HarmonicField({
   scale,
   structure,
   rootKey,
+  onChange,
 }: HarmonicFieldProps) {
+  const [harmonicField, setHarmonicField] = useState<Chord[]>([]);
+
   function getHarmonicField() {
     const scaleNotes: string[] = TonalScale.get(
       `${rootKey}${note === "natural" ? "" : note} ${scale}`
@@ -61,7 +66,14 @@ export function HarmonicField({
     return chords;
   }
 
-  const harmonicField: Chord[] = getHarmonicField();
+  useEffect(() => {
+    const hf = getHarmonicField();
+    setHarmonicField(hf);
+    onChange({
+      name: `${rootKey}${note === "natural" ? "" : note} ${scale} ${structure}`,
+      harmonicField: hf,
+    });
+  }, [note, scale, structure, rootKey]);
 
   return (
     <View style={styles.container}>

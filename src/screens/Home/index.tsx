@@ -3,12 +3,13 @@ import { ChordStructure, Note, RootKey, Scale } from "types/harmonic-field";
 import { KeySelector } from "@components/KeySelector";
 import { Navbar } from "@components/Navbar";
 import { NotesSelector } from "@components/NotesSelector";
-import { View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { Chord } from "types/chord";
 
 import { useState } from "react";
 import { HarmonicField } from "@components/HarmonicField";
+import { storeHarmonicField } from "../../../src/firebase/app";
 
 const structures = [
   { value: "triad", label: "Tríades" },
@@ -63,6 +64,13 @@ export function Home() {
   const [structure, setStructure] = useState<ChordStructure>("triad");
   const [scale, setScale] = useState<Scale>("major");
   const [rootKey, setRootKey] = useState<RootKey>("" as RootKey);
+  const [harmonicField, setHarmonicField] = useState<{
+    name: string;
+    harmonicField: Chord[];
+  }>({
+    harmonicField: [],
+    name: "",
+  });
 
   return (
     <View style={styles.container}>
@@ -114,8 +122,18 @@ export function Home() {
           scale={scale}
           structure={structure}
           rootKey={rootKey}
+          onChange={(hf) => setHarmonicField(hf)}
         />
       </View>
+
+      <TouchableOpacity
+        style={styles.saveBtn}
+        onPress={() => {
+          storeHarmonicField("matheus", harmonicField);
+        }}
+      >
+        <Text style={styles.saveBtnLabel}>Salvar Campo Harmônico</Text>
+      </TouchableOpacity>
     </View>
   );
 }
